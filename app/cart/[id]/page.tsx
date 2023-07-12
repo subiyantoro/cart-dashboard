@@ -5,10 +5,6 @@ import { ColumnTable } from "@/utils/type";
 
 const productCartColumn: ColumnTable[] = [
     {
-        id: 'id',
-        accessor: 'id',
-    },
-    {
         id: 'title',
         accessor: 'Product Name',
     },

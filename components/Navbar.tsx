@@ -38,7 +38,11 @@ const Navbar = ({ menu }: { menu: Array<MenuList> }) => {
             "
         >
             <ul className="py-5 max-md:flex max-md:justify-between">
-                <li key="title" className="block pl-5 py-2">Admin Cart</li>
+                <li key="title" className="block pl-5 py-2">
+                    <Link href="/">
+                        Admin Cart
+                    </Link>
+                </li>
                 <li key="menu" className="hidden max-md:block">
                     <button onClick={() => setHideMenu(!hideMenu)} className="m-2">
                         <Bars3Icon className="h-6 w-6 text-black" />
