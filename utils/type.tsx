@@ -47,3 +47,8 @@ export type Cart = {
     totalProducts: number,
     totalQuantity: number,
 }
+
+export type SortData = {
+    accessor: string,
+    sort: 'ASC' | 'DESC'
+}

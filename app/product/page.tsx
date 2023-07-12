@@ -31,7 +31,17 @@ const productColumns: Array<ColumnTable> = [
 ];
 
 const Page = () => {
-    const { meta, products, isLoading, fetchProducts, filter, changeFilter, fetchSearch } = useFetchProduct();
+    const {
+        meta,
+        products,
+        isLoading,
+        fetchProducts,
+        filter,
+        changeFilter,
+        fetchSearch,
+        changeSort,
+        sort,
+    } = useFetchProduct();
 
     useEffect(() => {
         if (filter.q !== '') {
@@ -52,6 +62,9 @@ const Page = () => {
                     data={products}
                     meta={meta}
                     isLoading={isLoading}
+                    onSortChange={changeSort}
+                    isSort
+                    sortData={sort}
                 />
             </div>
             <div className="flex flex-row-reverse">

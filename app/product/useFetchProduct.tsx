@@ -1,7 +1,7 @@
 import { getProductList, searchProduct } from "@/services/api";
-import { reformatDataProduct } from "@/utils/reformat";
-import { FilterTable, ProductList, metaTable } from "@/utils/type"
-import { useState } from "react"
+import { reformatDataProduct, sortData } from "@/utils/reformat";
+import { FilterTable, ProductList, SortData, metaTable } from "@/utils/type"
+import { useEffect, useState } from "react"
 
 export const useFetchProduct = () => {
     const [products, setProducts] = useState<ProductList[]>([]);
@@ -14,6 +14,10 @@ export const useFetchProduct = () => {
     const [meta, setMeta] = useState<metaTable>({
         total: 0,
     })
+    const [sort, setSort] = useState<SortData>({
+        accessor: 'name',
+        sort: 'DESC',
+    });
 
     const changeFilter = (type: string, val: any) => {
         setFilter(prevFilter => ({
@@ -26,7 +30,7 @@ export const useFetchProduct = () => {
         setIsLoading(true);
         getProductList(filter)
             .then(res => {
-                setProducts(reformatDataProduct(res.data?.products))
+                setProducts(sortData(reformatDataProduct(res.data?.products), sort.accessor, sort.sort))
                 setMeta({
                     total: res.data?.total,
                 })
@@ -39,7 +43,7 @@ export const useFetchProduct = () => {
         setIsLoading(true);
         searchProduct(filter)
             .then(res => {
-                setProducts(reformatDataProduct(res.data?.products))
+                setProducts(sortData(reformatDataProduct(res.data?.products), sort.accessor, sort.sort))
                 setMeta({
                     total: res.data?.total,
                 })
@@ -47,6 +51,17 @@ export const useFetchProduct = () => {
             .catch(() => alert('Failed Get Data'))
             .finally(() => setIsLoading(false))
     }
+
+    const changeSort = (newAccessor: string) => {
+        setSort(prev => ({
+            accessor: newAccessor,
+            sort: prev.sort === 'DESC' ? 'ASC' : 'DESC',
+        }));
+    }
+
+    useEffect(() => {
+        setProducts(sortData(products, sort.accessor, sort.sort));
+    }, [sort]);
 
     return {
         meta,
@@ -56,5 +71,7 @@ export const useFetchProduct = () => {
         fetchProducts,
         fetchSearch,
         changeFilter,
+        changeSort,
+        sort,
     };
 }

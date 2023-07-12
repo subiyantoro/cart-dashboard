@@ -22,3 +22,23 @@ export const reformatDataCart = (cartList: any[]): Cart[] => {
         discountedTotal: cart.discountedTotal,
     }));
 }
+
+export const sortData = (data: any[], accessor: string, sort: 'ASC' | 'DESC') => {
+    const dataToSort = data.slice();
+    if (sort === 'DESC') dataToSort.sort((x, y) => {
+        const nameX = typeof x[accessor] === 'string' ? x[accessor].toUpperCase() : x[accessor];
+        const nameY = typeof y[accessor] === 'string' ? y[accessor].toUpperCase() : y[accessor];
+        if (nameX < nameY) return 1;
+        if (nameX > nameY) return -1;
+        return 0;
+    });
+    if (sort === 'ASC') dataToSort.sort((x, y) => {
+        const nameX = typeof x[accessor] === 'string' ? x[accessor].toUpperCase() : x[accessor];
+        const nameY = typeof y[accessor] === 'string' ? y[accessor].toUpperCase() : y[accessor];
+        if (nameX < nameY) return -1;
+        if (nameX > nameY) return 1;
+        return 0;
+    });
+
+    return dataToSort;
+}
