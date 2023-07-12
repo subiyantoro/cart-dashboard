@@ -16,7 +16,6 @@ const Table = (
     { column, data, isLoading, rowClickEvent, isSort = false, onSortChange, sortData }: TableProps
 ) => {
     const keyColumn = column.map(col => Object.entries(col).map(([key, val]) => val)[0]);
-    console.log(sortData);
 
     return (
         <table className="w-full border-collapse">

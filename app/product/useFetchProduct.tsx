@@ -61,7 +61,7 @@ export const useFetchProduct = () => {
 
     useEffect(() => {
         setProducts(sortData(products, sort.accessor, sort.sort));
-    }, [sort]);
+    }, [sort, filter]);
 
     return {
         meta,
