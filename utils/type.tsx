@@ -19,7 +19,7 @@ export type ProductList = {
 };
 
 export type metaTable = {
-    total: number | undefined,
+    total?: number | undefined,
 };
 
 export type FilterTable = {

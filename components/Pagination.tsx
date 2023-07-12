@@ -26,11 +26,12 @@ const Pagination = ({
             >
                 Prev
             </button>
-            <p className="px-3 py-2">{`Page ${filter.skip === 0 ? 1 : (filter.skip / filter.limit) + 1} / ${Math.ceil(meta.total ? meta.total : 0 / filter.limit)}`}</p>
+            <p className="px-3 py-2">{`Page ${filter.skip === 0 ? 1 : (filter.skip / filter.limit) + 1} / ${Math.ceil((meta.total || 0) / filter.limit)}`}</p>
             <button
                 type="button"
-                className="border-2 bg-gray-300 border-gray-700 rounded-sm px-3 py-2"
+                className={`border-2 rounded-sm px-3 py-2 ${Math.ceil((meta.total || 0) / filter.limit) === ((filter.skip / filter.limit) + 1) || Math.ceil((meta.total || 0) / filter.limit) === 0 ? 'text-gray-300 border-gray-300' : 'bg-gray-300 border-gray-700'}`}
                 onClick={() => changePage('NEXT')}
+                disabled={Math.ceil((meta.total || 0) / filter.limit) === ((filter.skip / filter.limit) + 1) || Math.ceil((meta.total || 0) / filter.limit) === 0}
             >
                 Next
             </button>

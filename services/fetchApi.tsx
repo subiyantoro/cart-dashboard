@@ -1,7 +1,7 @@
 type METHOD = 'GET' | 'POST';
 
 type ApiReturn = {
-    data?: Array<any> | null,
+    data?: any | null,
     resCode: number,
 }
 
