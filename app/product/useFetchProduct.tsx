@@ -1,5 +1,5 @@
 import { getProductList, searchProduct } from "@/services/api";
-import { reformatDataProduct, sortData } from "@/utils/reformat";
+import { changeSortData, reformatDataProduct, sortData } from "@/utils/reformat";
 import { FilterTable, ProductList, SortData, metaTable } from "@/utils/type"
 import { useEffect, useState } from "react"
 
@@ -52,12 +52,7 @@ export const useFetchProduct = () => {
             .finally(() => setIsLoading(false))
     }
 
-    const changeSort = (newAccessor: string) => {
-        setSort(prev => ({
-            accessor: newAccessor,
-            sort: prev.sort === 'DESC' ? 'ASC' : 'DESC',
-        }));
-    }
+    const changeSort = (newAccessor: string) => changeSortData(newAccessor, setSort);
 
     useEffect(() => {
         setProducts(sortData(products, sort.accessor, sort.sort));

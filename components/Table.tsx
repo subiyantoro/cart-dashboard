@@ -22,12 +22,16 @@ const Table = (
             <thead>
                 <tr>
                     {column.map(col => (
-                        <th key={col.id} className="pr-5 font-black cursor-pointer" {...isSort && { onClick: () => onSortChange?.(col.id) }}>
+                        <th key={col.id} className={`pr-5 font-black ${isSort && 'cursor-pointer'}`} {...isSort && { onClick: () => onSortChange?.(col.id) }}>
                             <div className="flex flex-row justify-between text-center">
                                 {col.accessor}
-                                {sortData?.sort === 'ASC' && sortData.accessor === col.id && <ChevronDownIcon className="h-4 w-4 text-black" />}
-                                {sortData?.sort === 'DESC' && sortData.accessor === col.id && <ChevronUpIcon className="h-4 w-4 text-black" />}
-                                {sortData?.accessor !== col.id && <ChevronDownIcon className="h-4 w-4 text-black" />}
+                                {isSort && (
+                                    <div>
+                                        {sortData?.sort === 'ASC' && sortData.accessor === col.id && <ChevronDownIcon className="h-4 w-4 text-black" />}
+                                        {sortData?.sort === 'DESC' && sortData.accessor === col.id && <ChevronUpIcon className="h-4 w-4 text-black" />}
+                                        {sortData?.accessor !== col.id && <ChevronDownIcon className="h-4 w-4 text-black" />}
+                                    </div>
+                                )}
                             </div>
                         </th>
                     ))}

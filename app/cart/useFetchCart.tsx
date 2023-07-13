@@ -1,6 +1,6 @@
 import { getCartList } from "@/services/api";
-import { reformatDataCart } from "@/utils/reformat";
-import { Cart, FilterTable, metaTable } from "@/utils/type"
+import { changeSortData, reformatDataCart, sortData } from "@/utils/reformat";
+import { Cart, FilterTable, SortData, metaTable } from "@/utils/type"
 import { useEffect, useState } from "react"
 
 export const useFetchCart = () => {
@@ -14,6 +14,10 @@ export const useFetchCart = () => {
     const [meta, setMeta] = useState<metaTable>({
         total: 0,
     });
+    const [sort, setSort] = useState<SortData>({
+        accessor: 'name',
+        sort: 'DESC',
+    });
 
     const changeFilter = (type: string, val: any) => {
         setFilter(prevFilter => ({
@@ -26,7 +30,7 @@ export const useFetchCart = () => {
         setIsLoading(true);
         getCartList(filter)
             .then(res => {
-                setCarts(reformatDataCart(res.data?.carts));
+                setCarts(sortData(reformatDataCart(res.data?.carts), sort.accessor, sort.sort));
                 setMeta({
                     total: res.data?.total,
                 });
@@ -35,16 +39,20 @@ export const useFetchCart = () => {
             .finally(() => setIsLoading(false))
     }
 
+    const changeSort = (newAccessor: string) => changeSortData(newAccessor, setSort);
+
     useEffect(() => {
         fetchCarts();
-    }, [filter]);
+    }, [filter, sort]);
 
     return {
+        sort,
         meta,
         carts,
         isLoading,
         filter,
         fetchCarts,
         changeFilter,
+        changeSort,
     }
 }

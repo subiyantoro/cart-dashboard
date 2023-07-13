@@ -30,7 +30,7 @@ const cartColumns: ColumnTable[] = [
 ];
 
 const Page = () => {
-    const { carts, filter, meta, isLoading, changeFilter } = useFetchCart();
+    const { carts, filter, meta, isLoading, changeFilter, sort, changeSort } = useFetchCart();
     const router = useRouter();
 
     return (
@@ -42,6 +42,9 @@ const Page = () => {
                     meta={meta}
                     isLoading={isLoading}
                     rowClickEvent={(id) => router.push(`cart/${id}`)}
+                    isSort
+                    sortData={sort}
+                    onSortChange={changeSort}
                 />
             </div>
             <div className="flex flex-row-reverse">

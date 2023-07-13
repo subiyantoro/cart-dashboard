@@ -42,3 +42,10 @@ export const sortData = (data: any[], accessor: string, sort: 'ASC' | 'DESC') =>
 
     return dataToSort;
 }
+
+export const changeSortData = (newAccessor: string, setSort: any) => {
+    setSort((prev: { sort: any; }) => ({
+        accessor: newAccessor,
+        sort: prev.sort === 'DESC' ? 'ASC' : 'DESC',
+    }));
+}
